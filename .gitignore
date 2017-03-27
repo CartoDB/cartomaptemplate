@@ -2,3 +2,4 @@ env/*
 *pyc
 dotcarto.conf
 src/*
+data/_temp/*
