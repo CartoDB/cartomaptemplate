@@ -47,9 +47,9 @@ CsrfProtect(app)
 class DotCartoForm(FlaskForm):
     carto_api_endpoint = StringField("CARTO API endpoint", validators=[DataRequired()], description="For carto.com cloud accounts: https://YOUR_USER_NAME.carto.com/api/")
     carto_api_key = StringField("CARTO API key", validators=[DataRequired()], description='Found on the "Your API keys" section of your user profile')
-    # original_dotcarto_file = FileField("Original .carto file", validators=[FileRequired(), FileAllowed(["carto"], ".carto files only!")],
-    #                                    description=".carto file where datasets will be swapped")
-    cartojsontemplate = StringField("Carto.json template name", validators=[DataRequired()], description="Carto.json template name", value="sheehan-carto")
+    original_dotcarto_file = FileField("Original .carto file", validators=[FileRequired(), FileAllowed(["carto"], ".carto files only!")],
+                                       description=".carto file where datasets will be swapped")
+    cartojsontemplate = StringField("Carto.json template name", validators=[DataRequired()], description="Carto.json template name")
     old_dataset_names = StringField("Old dataset names", validators=[DataRequired()], description="Comma-separated list of old dataset names")
     new_dataset_names = StringField("New dataset names", validators=[DataRequired()], description="Comma-separated list of new dataset names, same order as above!!!")
 
