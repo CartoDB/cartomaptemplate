@@ -1,0 +1,4 @@
+env/*
+*pyc
+dotcarto.conf
+src/*
