@@ -34,3 +34,6 @@ $ honcho start
 ```
 
 And then pointing your browser to `http://localhost:5000`
+
+
+```install ipd```

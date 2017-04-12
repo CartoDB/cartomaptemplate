@@ -27,16 +27,16 @@
                 <div class="col-md-6 col-md-offset-3">
                     {% from "_formhelpers.html" import render_field %}
                     <!-- <form method="POST" enctype="multipart/form-data"> -->
-                    <form method="POST" action="{{ url_for('add') }}">
+                    <form method="POST" action="{{ url_for('index') }}">
                         {{ form.csrf_token }}
                         {{ render_field(form.carto_api_endpoint) }}
                         {{ render_field(form.carto_api_key) }}
-                        {{ render_field(form.original_dotcarto_file) }}
                         {{ render_field(form.cartojsontemplate) }}
                         {{ render_field(form.old_dataset_names) }}
                         {{ render_field(form.new_dataset_names) }}
                         <input type="submit" class="btn btn-primary" value="Submit" />
                     </form>
+                    <!-- <pre><code>{{ result }}</pre></code> -->
                 </div>
             </div>
         </div>

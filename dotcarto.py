@@ -31,20 +31,20 @@ class DotCartoFile(object):
             new_dataset = self.sql.send("select * from {dataset}".format(dataset=replacement["new_dataset_name"]), format="gpkg")
             zip_buffer.writestr(join(self.visualization_id, replacement["new_dataset_name"] + ".gpkg"), new_dataset)
 
-    def get_new(self, destination_path=None):
-        with ZipFile(self.dotcarto_file) as original_dotcarto_file:
-            self.visualization_id = original_dotcarto_file.namelist()[0][:-1]
-            json_file_relative_path = join(self.visualization_id, self.visualization_id + ".carto.json")
-            self.json = original_dotcarto_file.read(json_file_relative_path)
+    # def get_new(self, destination_path=None):
+    #     with ZipFile(self.dotcarto_file) as original_dotcarto_file:
+    #         self.visualization_id = original_dotcarto_file.namelist()[0][:-1]
+    #         json_file_relative_path = join(self.visualization_id, self.visualization_id + ".carto.json")
+    #         self.json = original_dotcarto_file.read(json_file_relative_path)
 
-        if destination_path is not None:
-            with ZipFile(destination_path, mode='w') as new_dotcarto_file:
-                self.replace_datasets_in_dotcarto_file(new_dotcarto_file)
-                new_dotcarto_file.writestr(json_file_relative_path, self.json.encode('utf-8'))
-        else:
-            new_dotcarto_buffer = StringIO()
-            with ZipFile(new_dotcarto_buffer, mode='w') as new_dotcarto_file:
-                self.replace_datasets_in_dotcarto_file(new_dotcarto_file)
-                new_dotcarto_file.writestr(json_file_relative_path, self.json.encode('utf-8'))
-            new_dotcarto_buffer.seek(0)
-            return new_dotcarto_buffer
+    #     if destination_path is not None:
+    #         with ZipFile(destination_path, mode='w') as new_dotcarto_file:
+    #             self.replace_datasets_in_dotcarto_file(new_dotcarto_file)
+    #             new_dotcarto_file.writestr(json_file_relative_path, self.json.encode('utf-8'))
+    #     else:
+    #         new_dotcarto_buffer = StringIO()
+    #         with ZipFile(new_dotcarto_buffer, mode='w') as new_dotcarto_file:
+    #             self.replace_datasets_in_dotcarto_file(new_dotcarto_file)
+    #             new_dotcarto_file.writestr(json_file_relative_path, self.json.encode('utf-8'))
+    #         new_dotcarto_buffer.seek(0)
+    #         return new_dotcarto_buffer

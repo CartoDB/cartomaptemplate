@@ -8,7 +8,7 @@ from flask import Flask, send_file, render_template
 from werkzeug.utils import secure_filename
 from wtforms import StringField
 from wtforms.validators import DataRequired
-from dotcarto import DotCartoFile
+#from dotcarto import DotCartoFile
 
 from flask import render_template, request, redirect, url_for, jsonify, flash
 #from app import app
@@ -50,66 +50,6 @@ if config.get("webui", "debug"):
 app.secret_key = config.get("webui", "secret_key")
 CsrfProtect(app)
 
-
-class DotCartoForm(FlaskForm):
-    carto_api_endpoint = StringField("CARTO Username", validators=[DataRequired()], description="sheehan-carto")
-    carto_api_key = StringField("CARTO API key", validators=[DataRequired()], description='Found on the "Your API keys" section of your user profile')
-    original_dotcarto_file = FileField("Original .carto file", validators=[FileRequired(), FileAllowed(["carto"], ".carto files only!")],
-                                       description=".carto file where datasets will be swapped")
-    cartojsontemplate = StringField("Carto.json template name", validators=[DataRequired()], description="template.carto.json")
-    old_dataset_names = StringField("Old dataset names", validators=[DataRequired()], description="infogroup_bus_2012_is_mcdonalds")
-    new_dataset_names = StringField("New dataset names", validators=[DataRequired()], description="infogroup_bus_2012_like_exxon")
-
-
-@app.route("/", methods=["GET", "POST"])
-@app.route("/index", methods=["GET","POST"])
-def index():
-    form = DotCartoForm()
-    return render_template("index.html")
-
-# def index():
-#     form = DotCartoForm()
-
-#     if form.validate_on_submit():
-#         filename = secure_filename(form.original_dotcarto_file.data.filename)
-
-#         dotcarto_file = DotCartoFile(form.original_dotcarto_file.data.stream, form.carto_api_endpoint.data, form.carto_api_key.data)
-
-#         new_dataset_names = form.new_dataset_names.data.split(",")
-#         for i, old_dataset_name in enumerate(form.old_dataset_names.data.split(",")):
-#             dotcarto_file.replace_dataset(old_dataset_name, new_dataset_names[i])
-
-#         return send_file(dotcarto_file.get_new(), attachment_filename=filename, as_attachment=True)
-
-#     return render_template("index.html", form=form)
-@app.route("/add",methods=["GET","POST"])
-def add(username='',apikey='',cartojson='',first='',second=''):
-    # cred = json.load(open('credentials.json')) # modify credentials.json.sample
-    if username == '':
-        username= request.form.get("userName")
-    if apikey == '':
-        apikey= request.form.get("apiKey")
-    if cartojson == '':
-        cartjson = form.cartojsontemplate.data
-    if first == '':
-        first = form.new_dataset_names.data.split(",")
-    if second == '':
-        second = form.old_dataset_names.data.split(",")
-
-    cartojson = 'template.carto.json'
-    curTime = datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
-    inFile = 'data/'+cartojson
-    ouFile = 'data/_temp/'+cartojson.replace('.carto.json','')+'_'+curTime+'.carto.json'
-    print inFile, ouFile, first, second
-    openFileReplaceDatasetSave(inFile,ouFile,first,second)
-  
-    cl = CartoDBAPIKey(apikey, username)
-
-    # Import csv file, set privacy as 'link' and create a default viz
-    fi = FileImport(ouFile, cl, create_vis='true', privacy='link')
-    fi.run()
-    return render_template("index.html",result=fi)
-
 def openJSON(inFile):
   with open(inFile) as json_data:
     data = json.load(json_data)
@@ -127,3 +67,76 @@ def openFileReplaceDatasetSave(inFile,ouFile,oldTableName,newTableName):
   data = replaceDataset(openJSON(inFile),oldTableName,newTableName)
   saveJSON(data,ouFile)
   return data
+
+class DotCartoForm(FlaskForm):
+    carto_api_endpoint = StringField("CARTO Username", validators=[DataRequired()], description="sheehan-carto")
+    carto_api_key = StringField("CARTO API key", validators=[DataRequired()], description='Found on the "Your API keys" section of your user profile')
+    # original_dotcarto_file = FileField("Original .carto file", validators=[FileAllowed(["carto"], ".carto files only!")],
+    #                                    description=".carto file where datasets will be swapped")
+    cartojsontemplate = StringField("Carto.json template name", validators=[DataRequired()], description="template.carto.json")
+    old_dataset_names = StringField("Old dataset names", validators=[DataRequired()], description="infogroup_bus_2012_is_mcdonalds")
+    new_dataset_names = StringField("New dataset names", validators=[DataRequired()], description="infogroup_bus_2012_like_exxon")
+  
+
+
+#@app.route("/", methods=["GET", "POST"])
+# @app.route("/index", methods=["GET","POST"])
+# def index():
+#     form = DotCartoForm()
+#     return render_template("index.html")
+
+# def index():
+#     form = DotCartoForm()
+
+#     if form.validate_on_submit():
+#         filename = secure_filename(form.original_dotcarto_file.data.filename)
+
+#         dotcarto_file = DotCartoFile(form.original_dotcarto_file.data.stream, form.carto_api_endpoint.data, form.carto_api_key.data)
+
+#         new_dataset_names = form.new_dataset_names.data.split(",")
+#         for i, old_dataset_name in enumerate(form.old_dataset_names.data.split(",")):
+#             dotcarto_file.replace_dataset(old_dataset_name, new_dataset_names[i])
+
+#         return send_file(dotcarto_file.get_new(), attachment_filename=filename, as_attachment=True)
+
+#     return render_template("index.html", form=form)
+@app.route("/",methods=["GET","POST"])
+def index():
+    form = DotCartoForm()
+    fi = None
+    
+    if form.validate_on_submit():
+        import ipdb; ipdb.set_trace()
+        # cred = json.load(open('credentials.json')) # modify credentials.json.sample
+        #if username == '':
+        username= form.carto_api_endpoint.data
+        #if apikey == '':
+        apikey= form.carto_api_key.data
+        #if cartojson == '':
+        cartojson = form.cartojsontemplate.data
+        #if first == '':
+        first = form.old_dataset_names.data#.split(",").replace(' ','') #remove [u'']
+        #if second == '':
+        second = form.new_dataset_names.data#.split(",").replace(' ','')
+
+        #cartojson = 'template.carto.json'
+        curTime = datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+        inFile = 'data/'+cartojson
+        ouFile = 'data/_temp/'+cartojson.replace('.carto.json','')+'_'+curTime+'.carto.json'
+        print inFile, ouFile, first, second
+        openFileReplaceDatasetSave(inFile,ouFile,first,second)
+      
+        cl = CartoDBAPIKey(apikey, username)
+
+        # Import csv file, set privacy as 'link' and create a default viz
+        fi = FileImport(ouFile, cl, create_vis='true', privacy='link')
+        fi.run()
+    return render_template("index.html",form=form,result=str(fi))
+    #return fi
+    #return render_template("index.html",result=fi)
+    #print fi
+
+
+
+if __name__ == "__main__":
+    app.run()
