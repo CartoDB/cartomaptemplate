@@ -37,3 +37,4 @@ And then pointing your browser to `http://localhost:5000`
 
 
 ```install ipd```
+```pip install -e git+git://github.com/CartoDB/cartodb-python.git#egg=cartodb```
