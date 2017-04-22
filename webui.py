@@ -101,6 +101,7 @@ class DotCartoForm(FlaskForm):
 
 #     return render_template("index.html", form=form)
 @app.route("/",methods=["GET","POST"])
+@app.route("/index", methods=["GET","POST"])
 def index():
     form = DotCartoForm()
     fi = None

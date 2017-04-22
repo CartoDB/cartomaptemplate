@@ -15,7 +15,7 @@
     </head>
     <body>
         <div class="container">
-            <h1>Replace dataset in .carto file</h1>
+            <h1>Replace dataset in .carto.json file</h1>
             <div class="alert alert-warning" role="alert">
                 <ul>
                     <li>New datasets must be existing datasets on the CARTO account at the time of generating the new .carto file</li>
@@ -36,7 +36,7 @@
                         {{ render_field(form.new_dataset_names) }}
                         <input type="submit" class="btn btn-primary" value="Submit" />
                     </form>
-                    <!-- <pre><code>{{ result }}</pre></code> -->
+                    <pre><code>{{result}}</pre></code>
                 </div>
             </div>
         </div>
