@@ -107,7 +107,7 @@ def index():
     fi = None
     
     if form.validate_on_submit():
-        import ipdb; ipdb.set_trace()
+        #import ipdb; ipdb.set_trace()
         # cred = json.load(open('credentials.json')) # modify credentials.json.sample
         #if username == '':
         username= form.carto_api_endpoint.data
