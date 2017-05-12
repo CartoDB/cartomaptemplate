@@ -27,7 +27,7 @@
                 <div class="col-md-6 col-md-offset-3">
                     {% from "_formhelpers.html" import render_field %}
                     <!-- <form method="POST" enctype="multipart/form-data"> -->
-                    <form method="POST" action="{{ url_for('index') }}">
+                    <form method="POST" action="{{ url_for('index') }}" onsubmit="refreshLocalStorage()">
                         {{ form.csrf_token }}
                         {{ render_field(form.carto_api_endpoint) }}
                         {{ render_field(form.carto_api_key) }}
@@ -40,5 +40,17 @@
                 </div>
             </div>
         </div>
+        <script>
+            var refreshLocalStorage = function () {
+                localStorage.credentials = JSON.stringify({carto_api_endpoint: document.getElementsByName("carto_api_endpoint")[0].value, carto_api_key: document.getElementsByName("carto_api_key")[0].value});
+            };
+            if (localStorage.credentials) {
+                var credentials = JSON.parse(localStorage.credentials);
+            } else {
+                var credentials = {carto_api_endpoint: "", carto_api_key: ""};
+            }
+            document.getElementsByName("carto_api_endpoint")[0].setAttribute("value", credentials.carto_api_endpoint);
+            document.getElementsByName("carto_api_key")[0].setAttribute("value", credentials.carto_api_key);
+        </script>
     </body>
 </html>
