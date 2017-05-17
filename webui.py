@@ -78,7 +78,7 @@ class DotCartoForm(FlaskForm):
     # original_dotcarto_file = FileField("Original .carto file", validators=[FileAllowed(["carto"], ".carto files only!")],
     #                                    description=".carto file where datasets will be swapped")
     cartojsontemplate = SelectField("Carto.json template name", validators=[DataRequired()], choices=[(f, f) for f in filenames], description="template.carto.json or ninth_decimal_dma.carto.json")
-    old_dataset_names = StringField("Old dataset names", validators=[DataRequired()], description="infogroup_bus_2012_is_mcdonalds")
+    #old_dataset_names = StringField("Old dataset names", validators=[DataRequired()], description="infogroup_bus_2012_is_mcdonalds")
     new_dataset_names = StringField("New dataset names", validators=[DataRequired()], description="infogroup_bus_2012_like_exxon")
   
 
