@@ -25,7 +25,7 @@
     </div>
     <script>
         $(".{{ field.name }}-refresh").click(function () {
-            $.get("https://" + $("#carto_api_endpoint").val() + ".carto.com/api/v2/sql?api_key=" + $("#carto_api_endpoint").val() + "&q=select * from cdb_usertables()", function (data) {
+            $.get("https://" + $("#carto_api_endpoint").val() + ".carto.com/api/v2/sql?api_key=" + $("#carto_api_key").val() + "&q=select * from cdb_usertables() order by cdb_usertables asc", function (data) {
                 for (var i = 0; i < data.rows.length; i++) {
                     $("[name='{{ field.name }}']").append('<option val="' + data.rows[i].cdb_usertables + '">' + data.rows[i].cdb_usertables + '</option>');
                 }

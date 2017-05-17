@@ -79,6 +79,7 @@ class DotCartoForm(FlaskForm):
     #                                    description=".carto file where datasets will be swapped")
     cartojsontemplate = SelectField("Map template name", validators=[DataRequired()], choices=[(f, f) for f in filenames], description="The map template to use to generate a new map.")
     new_dataset_names = StringField("New dataset names", validators=[DataRequired()], description="dma_test or visitindex_test")  
+    map_title_name = StringField("Map title name", validators=[DataRequired()], description='Name the map, for example "DMA Regions April".')
 
 @app.route("/",methods=["GET","POST"])
 @app.route("/index", methods=["GET","POST"])
@@ -94,29 +95,40 @@ def index():
         #if apikey == '':
         apikey= form.carto_api_key.data
         #if cartojson == '':
-        cartojson = form.cartojsontemplate.data.replace(' ','_').lower()
+        cartojson = form.cartojsontemplate.data.replace(' ','_').lower()+'.carto.json'
         #if first == '':
-        if cartojson == 'dma_heatmap':
+        print 'cartjson assigned'
+        if cartojson == 'dma_heatmap.carto.json':
             first = 'dma_master_polygons_merge' 
-        elif cartojson == 'location_visit_index':
+        elif cartojson == 'location_visit_index.carto.json':
             first = 'visitindexheatmapexample' 
-
+        print first
         #if second == '':
         second = form.new_dataset_names.data
+        if cartojson == 'dma_heatmap.carto.json':
+            old_map_name = "TEMPLATE (USE THIS) - DMA Heatmap"
+        elif cartojson == 'location_visit_index.carto.json':
+            old_map_name = "TEMPLATE (USE THIS) - Location Visit Index"
+        
+        print first
+        new_map_name = form.map_title_name.data
 
         #cartojson = 'template.carto.json'
         curTime = datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
         inFile = 'data/'+cartojson
         ouFile = 'data/_temp/'+cartojson.replace('.carto.json','')+'_'+curTime+'.carto.json'
+        fiFile = 'data/_temp/'+new_map_name.replace(' ','_').lower()+'_'+cartojson.replace('.carto.json','')+'_'+curTime+'.carto.json'
         print inFile, ouFile, first, second
         openFileReplaceDatasetSave(inFile,ouFile,first,second)
+        print inFile, ouFile, old_map_name, new_map_name
+        openFileReplaceDatasetSave(ouFile,fiFile,old_map_name,new_map_name)
       
         cl = CartoDBAPIKey(apikey, username)
 
         # Import csv file, set privacy as 'link' and create a default viz
-        fi = FileImport(ouFile, cl, create_vis='true', privacy='link')
+        fi = FileImport(fiFile, cl, create_vis='true', privacy='link')
         fi.run()
-    return render_template("index.html",form=form,result=str(fi))
+    return render_template("index.html",form=form,result=[str(fi)])
 
 
 
