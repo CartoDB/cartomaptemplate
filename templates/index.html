@@ -34,8 +34,10 @@
                         {{ render_field(form.carto_api_endpoint) }}
                         {{ render_field(form.carto_api_key) }}
                         {{ render_field(form.cartojsontemplate) }}
+
                         {{ render_field(form.old_dataset_names) }}
                         {{ render_dataset_dropdown(form.new_dataset_names) }}
+
                         <input type="submit" class="btn btn-primary" value="Submit" />
                     </form>
                     <pre><code>{{result}}</pre></code>
