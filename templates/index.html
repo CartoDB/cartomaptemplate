@@ -20,7 +20,7 @@
             <div class="alert alert-warning" role="alert">
                 <ul>
                     <li>New datasets must be existing datasets on the CARTO account at the time of generating the new Carto Map.</li>
-                    <li>New datasets must have the same table schema as the old ones, otherwise the visualization will not render</li>
+                    <li>New datasets must have the same table schema as the ones in the original map template, otherwise the visualization will not render.</li>
                     <li>Find and replace in this app requires the filenames to be unique enough so they do not modify other carto.json elements.</li>
                 </ul>
             </div>
@@ -34,8 +34,6 @@
                         {{ render_field(form.carto_api_endpoint) }}
                         {{ render_field(form.carto_api_key) }}
                         {{ render_field(form.cartojsontemplate) }}
-
-                        {{ render_field(form.old_dataset_names) }}
                         {{ render_dataset_dropdown(form.new_dataset_names) }}
 
                         <input type="submit" class="btn btn-primary" value="Submit" />

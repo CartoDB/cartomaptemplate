@@ -26,7 +26,7 @@
     <script>
         $(".{{ field.name }}-refresh").click(function () {
             var sql = new cartodb.SQL({ user: $("#carto_api_endpoint").val() });
-            sql.execute("select * from cdb_usertables()")
+            sql.execute("select * from cdb_usertables() order by cdb_usertables asc")
                 .done(function(data) {
                     for (var i = 0; i < data.rows.length; i++) {
                         $("[name='{{ field.name }}']").append('<option val="' + data.rows[i].cdb_usertables + '">' + data.rows[i].cdb_usertables + '</option>');
