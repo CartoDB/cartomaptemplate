@@ -105,7 +105,7 @@ def index():
         if cartojson == 'dma_heatmap.carto.json':
             first = 'dma_master_polygons_merge' 
         elif cartojson == 'dma_heatmap_2.carto.json':
-            first = 'dma_visit_index_template_data_may2017v1'  
+            first = 'dma_visit_data_map2_test'  
         elif cartojson == 'location_visit_index.carto.json':
             first = 'visitindexheatmapexample' 
         print first
@@ -114,7 +114,7 @@ def index():
         if cartojson == 'dma_heatmap.carto.json':
             old_map_name = "TEMPLATE (USE THIS) - DMA Heatmap"
         elif cartojson == 'dma_heatmap_2.carto.json':
-            old_map_name = "FINAL - DMA Heatmap"
+            old_map_name = "Ninth Decimal - DMA Visits by Month"
         elif cartojson == 'location_visit_index.carto.json':
             old_map_name = "TEMPLATE (USE THIS) - Location Visit Index"
         
