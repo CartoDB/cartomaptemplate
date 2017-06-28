@@ -81,7 +81,7 @@ class DotCartoForm(FlaskForm):
     carto_api_key = StringField("CARTO API key", validators=[DataRequired()], description='Found on the "Your API keys" section of your user profile.')
     # original_dotcarto_file = FileField("Original .carto file", validators=[FileAllowed(["carto"], ".carto files only!")],
     #                                    description=".carto file where datasets will be swapped")
-    cartojsontemplate = SelectField("Map template name", validators=[DataRequired()], choices=[(f, f) for f in filenames], description="The map template to use to generate a new map.")
+    cartojsontemplate = SelectField("Map template name", validators=[DataRequired()], choices=[(f, f) for f in filenames], description="The map template to generate a new map.")
     new_dataset_names = StringField("New dataset names", validators=[DataRequired()], description="dma_test or visitindex_test")
     map_title_name = StringField("Map title name", validators=[DataRequired()], description='Name the map, for example "DMA Regions April".')
 
