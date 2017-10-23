@@ -116,7 +116,7 @@ def index():
         second = form.new_dataset_names.data
         # if cartojson == 'dma_heatmap.carto.json':
         #     old_map_name = "TEMPLATE (USE THIS) - DMA Heatmap"
-        if cartojson == 'dmas_oct-oct.carto.json':
+        if cartojson == 'dmas_oct.carto.json':
             old_map_name = "NinthDecimal DMAs - 0914"
         elif cartojson == 'visits_final.carto.json':
             old_map_name = "NinthDecimal Visits Index - 0914"
