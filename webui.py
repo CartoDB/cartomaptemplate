@@ -117,9 +117,9 @@ def index():
         # if cartojson == 'dma_heatmap.carto.json':
         #     old_map_name = "TEMPLATE (USE THIS) - DMA Heatmap"
         if cartojson == 'dmas_oct-oct.carto.json':
-            old_map_name = "FINAL - DMA Heatmap"
+            old_map_name = "NinthDecimal DMAs - 0914"
         elif cartojson == 'visits_final.carto.json':
-            old_map_name = "TEMPLATE (USE THIS) - Location Visit Index"
+            old_map_name = "NinthDecimal Visits Index - 0914"
 
         print first
         new_map_name = form.map_title_name.data
