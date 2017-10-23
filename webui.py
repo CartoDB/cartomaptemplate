@@ -107,18 +107,18 @@ def index():
         print 'cartjson assigned'
         # if cartojson == 'dma_heatmap.carto.json':
         #     first = 'dma_master_polygons_merge'
-        if cartojson == 'dmas-oct.carto.json':
+        if cartojson == 'dmas_oct.carto.json':
             first = 'dma_visit_index_template_data_may2017v1'
-        elif cartojson == 'visits-final.carto.json':
+        elif cartojson == 'visits_final.carto.json':
             first = 'visitindexheatmapexample'
         print first
         # if second == '':
         second = form.new_dataset_names.data
         # if cartojson == 'dma_heatmap.carto.json':
         #     old_map_name = "TEMPLATE (USE THIS) - DMA Heatmap"
-        if cartojson == 'dmas-oct.carto.json':
+        if cartojson == 'dmas_oct-oct.carto.json':
             old_map_name = "FINAL - DMA Heatmap"
-        elif cartojson == 'visits-final.carto.json':
+        elif cartojson == 'visits_final.carto.json':
             old_map_name = "TEMPLATE (USE THIS) - Location Visit Index"
 
         print first
